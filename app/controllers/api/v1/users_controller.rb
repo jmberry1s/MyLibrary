@@ -6,6 +6,16 @@ module Api
     class UsersController < Api::V1::ApplicationController
       skip_before_action :authenticate, only: %i[login create]
 
+      def favorite_book
+        book = Book.find_by(id: params[:id])
+        @current_user.favorite_books << book
+        render json: book
+      end
+      def favorites
+        books = @current_user.favorite_books
+        render json: books
+      end
+
       def login
         result = BaseApi::Auth.login(params[:email], params[:password], @ip)
         render_error(errors: 'User not authenticated', status: 401) and return unless result.success?

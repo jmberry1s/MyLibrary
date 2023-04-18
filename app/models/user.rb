@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :tokens
   has_many :user_roles
   has_many :roles, through: :user_roles
-
+  has_and_belongs_to_many :favorite_books, class_name: "Book"
   validates :email, uniqueness: true
 
   scope :invite_not_expired, -> { where('invitation_expiration > ?', DateTime.now) }
