@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       namespace :users do
+        get :favorites
         post :login
+        post :favorite_book
         delete :logout
         get :me
         post :create
